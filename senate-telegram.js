@@ -89,7 +89,7 @@ const saveDispatch = async (dispatch) => {
 const generateTelegrams = async () => {
     const registry = await loadFromCache('registry');
     const telegram = await loadFromCache('telegram');
-    const mode = input('Do you want to send the telegrams manually using generated URLs, or use a telegram API key. NOTE- you will need to ask the Imperial Council for the API key. (auto/manual): ', 'manual', {});
+    const mode = input('Do you want to send the telegrams manually using generated URLs, or use a telegram API key. NOTE- you will need to ask the Imperial Council for the API key. Manual tends to be faster than API. (auto/manual): ', 'manual', {});
     if (mode.toLowerCase() === 'auto') {
         await automaticTelegrams(registry, telegram);
     } else if (mode.toLowerCase() === 'manual') {
@@ -138,7 +138,7 @@ const automaticTelegrams = async (registry, telegram) => {
     for (const senator of registry.senators) {
         logger.logInfo(`Sending telegram ${count} to ${senator.alias}`)
         await fetchAPI(`https://www.nationstates.net/cgi-bin/api.cgi?a=sendTG&client=${telegram.client}&tgid=${telegram.tgid}&key=${telegram.secret}&to=${senator.alias.replaceAll(' ', '_')}`);
-        await sleep(30 * 1000);
+        await sleep(31 * 1000);
     }
 }
 
